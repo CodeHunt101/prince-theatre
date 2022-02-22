@@ -1,30 +1,33 @@
 import { useState, useEffect } from "react"
 import { Movie } from "./Movie"
-import { Box, LinearProgress } from "@mui/material"
+import {
+  Box,
+  LinearProgress,
+  Container,
+  Grid,
+  Pagination,
+} from "@mui/material"
 
-// const moviesPerPage = 8
+const moviesPerPage = 4
 
 export const Movies = () => {
-  
-  const [movies, setMovies] = useState([])
-  
-
   // Page state & handlers
-  // const [page, setPage] = useState(1)
-  // const handleOnPageChange = (event, page) => setPage(page)
+  const [page, setPage] = useState(1)
+  const handleOnPageChange = (event, page) => setPage(page)
 
-  
+  // Movies state, fetch on component load and render method
+  const [movies, setMovies] = useState([])
+
   const fetchMovies = () => {
-    fetch('/api/v1/movie_cards')
-      .then(resp => resp.json())
-      .then(movies=>setMovies(movies.response))
+    fetch("/api/v1/movie_cards")
+      .then((resp) => resp.json())
+      .then((movies) => setMovies(movies.response))
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     fetchMovies()
-  },[])
-  console.log(movies)
-  
+  }, [])
+
   const renderMoviesOnPage = (page = 1) => {
     if (movies.length === 0) {
       return (
@@ -34,15 +37,42 @@ export const Movies = () => {
       )
     } else {
       return movies
-        // .slice(page * moviesPerPage - moviesPerPage, page * moviesPerPage)
-        .map((movie) => (
-          <Movie key={movie.id} movie={movie} />
-        ))
+        .slice(page * moviesPerPage - moviesPerPage, page * moviesPerPage)
+        .map((movie) => <Movie key={movie.id} movie={movie} />)
     }
   }
 
   return (
-    renderMoviesOnPage()
+    <>
+      <Grid
+        id="movie-cards-list"
+        item
+        sx={{ mx: "auto", minHeight: "75vh", maxWidth: "1220px" }}
+        circle="true"
+      >
+        {movies.length > 0 && (
+          <Container
+            sx={{ display: "flex", justifyContent: "center" }}
+            // maxWidth="lg"
+          >
+            <Pagination
+              count={Math.ceil(movies.length / moviesPerPage)}
+              page={page}
+              onChange={handleOnPageChange}
+              color="primary"
+            />
+          </Container>
+        )}
+        <Container sx={{ py: 5 }} maxWidth="lg">
+          <Grid
+            container
+            sx={{ display: "flex", justifyContent: "center" }}
+            spacing={4}
+          >
+            {renderMoviesOnPage(page)}
+          </Grid>
+        </Container>
+      </Grid>
+    </>
   )
-  
 }

@@ -8,14 +8,12 @@ import {
 
 export const Movie = ({ movie }) => {
   return (
-    <Grid item xs={12} sm={6} md={3} lg={3}>
+    <Grid item xs={6} sm={6} md={3} lg={3}>
       <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <CardMedia
-          // onClick={handleOnClick}
           component="img"
           sx={{
             pt: "10%",
-            cursor: "pointer",
           }}
           height="300px"
           image={movie.poster}
@@ -23,10 +21,10 @@ export const Movie = ({ movie }) => {
         />
 
         <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h6" component="h2">
             {movie.title}
           </Typography>
-          <Typography gutterBottom variant="body1" component="p">
+          <Typography gutterBottom variant="body2" component="p">
             By: {movie.actors}
           </Typography>
           <Typography gutterBottom variant="body1" component="p">
