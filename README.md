@@ -1,24 +1,81 @@
-# README
+# PRINCE'S THEATRE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The place you'll find the best deals for movies in terms of price, guaranteed!
 
-Things you may want to cover:
+## Description
 
-* Ruby version
+This application renders a group of classic movies and compares the prices of two well-known streaming providers, "Filmworld" and "Cinemaworld".
+It displays movie posters, titles, actors, and the most impoart thing: prices!
+The cheapest prices are highlighted in green, and the expensive prices have strikethrough and are red coloured.
 
-* System dependencies
+For this project, the following technologies were used:
 
-* Configuration
+🧰 Languages
 
-* Database creation
+![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 
-* Database initialization
+🧰 Frameworks/Libraries
 
-* How to run the test suite
+![](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
+![](https://img.shields.io/badge/materialui-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white)
 
-* Services (job queues, cache servers, search engines, etc.)
+## How to Install and Run the Project
 
-* Deployment instructions
+1. Clone this repository.
 
-* ...
+2. Please make sure you are using **Ruby 2.7.4**, otherwise go to *Gemfile* and change the ruby version to the one you currently have (However, I encourage you to use **Ruby 2.7.4** to avoid incompatibility issues). Then please run:
+
+```
+bundle install
+```
+That will install rails and all its dependencies
+
+3. To install all the react dependencies, please run from the root directory:
+```
+npm install --prefix client
+```
+
+4. To call the server run:
+
+```
+rails server
+```
+
+5. Run the following to display the app in the browser:
+```
+npm start --prefix client
+```
+
+## Structure (MVC)
+
+### Models & Controllers
+The *Rails* server handles the logic of the app from the **GetMovies** (*get_movies.rb*) and **Movie** (*movie.rb*) models. The movies details are sent to the Client from  **Api::V1::MoviesController** (*movies_controller.rb*) as JSON. The manual play mode is handled from the client.
+
+### Views
+The components structure is the following:
+
+```
+App.js
+  |
+  |-->Header.js
+  |
+  |-->Movies.js
+          |
+          |-->Movie.js
+```
+
+*index.css* contains some stylings and layout that was not implemented from Material UI.
+
+## Tests
+
+## Recent major implementations
+
+
+## Improvement Opportunities
+
+
+Thank you for your time!

@@ -6,7 +6,7 @@ import { Container, Box, Paper } from "@mui/material"
 function App() {
   return (
     <div className="App">
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Box component={Paper} sx={{ backgroundColor: "#ffffffd9" }}>
           <Box sx={{ pt: 5, pb: 5 }}>
             <Header />

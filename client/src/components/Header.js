@@ -15,16 +15,8 @@ export const Header = () => (
       component="p"
       sx={{ ml: 2, mr: 2 }}
     >
-      Hi there! Welcome to Prince's Theatre, here you'll see the movie prices
-      from two cinemas! The{" "}
-      <span className="highlight-cheapest">
-        <b>cheapest are highlighted in green</b>
-      </span>{" "}
-      and the{" "}
-      <span className="highlight-expensive">
-        <del>expensive ones are in red with a strikethrough</del>
-      </span>
-      .
+      Hi there! Welcome to Prince's Theatre, here you'll see some movie prices from
+      two cinemas!
     </Typography>
   </Box>
 )
