@@ -1,11 +1,16 @@
 class GetMovies < ApplicationRecord
   
   def self.get_movies(theatre_name)
-    # Fetches the movies information. It'll retry fetching every time it the retrieved information is unsuccessful.
+    # Fetches the movies information. It'll retry for up to 10 times if the retrieved information is unsuccessful.
     response = self.fetch_movies(theatre_name)
     
-    while response[:message] == "Bad Gateway" || response[:message] == "Server Error"
+    attempts = 10
+    while (response[:message] == "Bad Gateway" || response[:message] == "Server Error")
+      if attempts == 0
+        break
+      end
       response = self.fetch_movies(theatre_name)
+      attempts -= 1
     end
     
     response
