@@ -72,6 +72,15 @@ App.js
 
 ## Tests
 
+For Ruby on Rails (server), RSpec was the designated testing tool.
+
+To execute the tests from Ruby on Rails, please run from the root directory:
+
+```
+rspec
+```
+It will automatically run the tests where green means that a test passed and red means it didn't pass.
+
 ## Recent major implementations
 
 
