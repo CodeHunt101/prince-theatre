@@ -23,6 +23,11 @@ For this project, the following technologies were used:
 ![](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
 ![](https://img.shields.io/badge/materialui-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white)
 
+Other worth mentioning frameworks/libraries/gems used are:
+- RSpec
+- Jest
+- HTTParty
+
 ## How to Install and Run the Project
 
 1. Clone this repository.
@@ -49,6 +54,8 @@ rails server
 ```
 npm start --prefix client
 ```
+
+Ports from server and client are already set to be different, so there is no need to specify them. Port 3000 for Rails and Port 4000 for React.
 
 ## Structure (MVC)
 
@@ -79,12 +86,20 @@ To execute the tests from Ruby on Rails, please run from the root directory:
 ```
 rspec
 ```
-It will automatically run the tests where green means that a test passed and red means it didn't pass.
+It will automatically run all the tests where green means that a test passed and red means it didn't pass.
 
-## Recent major implementations
+## API Key
+- The API key is safely stored in an environment variable in both development and production modes. 
+- If you are going to clone this repository, make sure you have a valid API Key.
 
+## Responsiveness
+This application is fully responsive. It adapts to any screen size.
 
-## Improvement Opportunities
+## Assumptions
+- The general information such as Movie titles and actors are the same. Therefore, those two attributes are rendered from Film World assuming that the Cinema World attributes will be the same.
+- The problem to solve is to compare price, so it is assumed that prices might not be the same.
+
+<!-- ## Improvement Opportunities -->
 
 
 Thank you for your time!
