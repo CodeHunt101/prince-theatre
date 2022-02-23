@@ -19,16 +19,20 @@ export const Movies = () => {
   const [movies, setMovies] = useState([])
 
   const fetchMovies = () => {
+    // Fetches movies from the server and assign them to the movies state
     fetch("/api/v1/movie_cards")
       .then((resp) => resp.json())
       .then((movies) => setMovies(movies.response))
   }
 
   useEffect(() => {
+    // Fetches movies on component load
     fetchMovies()
   }, [])
 
   const renderMoviesOnPage = (page = 1) => {
+    /* Shows a progress line until movies state has the required data, 
+    then shows only the ones needed depending on the current page */
     if (movies.length === 0) {
       return (
         <Box sx={{ width: "50%" }}>
