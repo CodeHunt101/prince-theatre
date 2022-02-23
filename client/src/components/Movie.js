@@ -1,12 +1,29 @@
-import {
-  Grid,
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@mui/material"
+import { Grid, Typography, Card, CardMedia, CardContent } from "@mui/material"
 
 export const Movie = ({ movie }) => {
+  
+  const renderPrices = () => {
+    return movie.price.cinemaworld.number < movie.price.filmworld.number ? (
+      <>
+        <Typography gutterBottom variant="body1" component="p" color="#4caf50">
+          <b>Cinemaworld: {movie.price.cinemaworld.currency}</b>
+        </Typography>
+        <Typography gutterBottom variant="body1" component="p" color="#ff1744">
+          <del>Filmworld: {movie.price.filmworld.currency}</del>
+        </Typography>
+      </>
+    ) : (
+      <>
+        <Typography gutterBottom variant="body1" component="p" color="#4caf50">
+          <b>Filmworld: {movie.price.filmworld.currency}</b>
+        </Typography>
+        <Typography gutterBottom variant="body1" component="p" color="#ff1744">
+          <del>Cinemaworld: {movie.price.cinemaworld.currency}</del>
+        </Typography>
+      </>
+    )
+  }
+
   return (
     <Grid item xs={6} sm={6} md={3} lg={3}>
       <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -27,12 +44,7 @@ export const Movie = ({ movie }) => {
           <Typography gutterBottom variant="body2" component="p">
             By: {movie.actors}
           </Typography>
-          <Typography gutterBottom variant="body1" component="p">
-            Cinemaworld: {movie.price.cinemaworld}
-          </Typography>
-          <Typography gutterBottom variant="body1" component="p">
-            Filmworld: {movie.price.filmworld}
-          </Typography>
+          {renderPrices()}
         </CardContent>
       </Card>
     </Grid>

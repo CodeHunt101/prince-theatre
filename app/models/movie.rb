@@ -16,7 +16,10 @@ class Movie < ApplicationRecord
         poster: movie[:Poster],
         actors: movie[:Actors],
         price: {
-          filmworld: self.number_to_currency(movie[:Price])
+          filmworld: {
+            currency: self.number_to_currency(movie[:Price]),
+            number: movie[:Price]
+          }
         }
       }
     end
@@ -25,7 +28,10 @@ class Movie < ApplicationRecord
     # assigning them to a new key that will be the prices of the other streaming provider
 
     cinemaworld_prices = GetMovies.get_movies("cinemaworld")[:Movies].map do |movie|
-      self.number_to_currency(movie[:Price])
+        {
+          currency: self.number_to_currency(movie[:Price]),
+          number: movie[:Price]
+        }
     end
 
     movie_cards = movies_info_without_cinemaworld_prices.each_with_index do |movie, index|
