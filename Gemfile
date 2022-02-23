@@ -33,6 +33,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0', '>= 5.0.2'
   gem "rack_session_access"
   gem "database_cleaner"
+  gem "awesome_print"
 end
 
 group :development do

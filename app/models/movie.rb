@@ -1,43 +1,53 @@
 class Movie < ApplicationRecord
   # ActionController::Base.helpers.number_to_currency
   
-  def self.movie_cards
-    # include ActionView::Helpers::NumberHelper
-    # Since both streaming providers share the same information (except prices) and also the information of each one has the same order, 
-    # the prices of each streaming provider's movie share the same indexes.
+  def self.endpoints
+    ["filmworld", "cinemaworld"]
+  end
 
-    # I mapped one of the streaming providers where I slightly modified the price keys by using a hash with the price of 
-    # the movie of that provider.
-    
-    movies_info_without_cinemaworld_prices = GetMovies.get_movies("filmworld")[:Movies].map do |movie|
-      {
-        id: movie[:ID],
-        title: movie[:Title],
-        poster: movie[:Poster],
-        actors: movie[:Actors],
-        price: {
-          filmworld: {
-            currency: self.number_to_currency(movie[:Price]),
-            number: movie[:Price]
-          }
-        }
-      }
-    end
-
-    # Then I mapped the other streaming provider by only returning an array of prices and
-    # assigning them to a new key that will be the prices of the other streaming provider
-
-    cinemaworld_prices = GetMovies.get_movies("cinemaworld")[:Movies].map do |movie|
+  def self.prices_of_cinemas
+    # For each endpoint, it adds all the prices as both currency and number formats.
+    result = {}
+    self.endpoints.each do |endpoint|
+      result[endpoint] = GetMovies.get_movies(endpoint)[:Movies].map do |movie|
         {
+          cinema_id: movie[:ID],
           currency: self.number_to_currency(movie[:Price]),
           number: movie[:Price]
         }
+      end
     end
+    result
+  end
+  
+  def self.movie_cards
+    # Assumption:
+    # Since streaming providers share the same information (except prices) and also the information of each one has the same order, 
+    # the prices of each streaming provider's movie share the same indexes.
+    
+    begin
+      movie_cards = []
+      # Loop over one of the streaming providers and only retrieve the information that is shared among all endpoints.
+      GetMovies.get_movies("filmworld")[:Movies].each do |movie|
+        movie_info = {
+          id: movie[:ID],
+          title: movie[:Title],
+          poster: movie[:Poster],
+          actors: movie[:Actors],
+        }
+        movie_cards << movie_info
+      end
+      movie_cards
 
-    movie_cards = movies_info_without_cinemaworld_prices.each_with_index do |movie, index|
-      movie[:price][:cinemaworld] = cinemaworld_prices[index]
+
+    rescue NoMethodError => error
+      {
+        error: error, 
+        message: "There is a problem with retriving the information from the endpoints"
+      }
     end
   end
+
 
   private
   
