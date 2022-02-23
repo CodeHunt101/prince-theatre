@@ -46,14 +46,14 @@ export const Movies = () => {
     <>
       <Grid
         id="movie-cards-list"
+        component="section"
         item
-        sx={{ mx: "auto", minHeight: "75vh", maxWidth: "1220px" }}
+        sx={{ mx: "auto", minHeight: "75vh", maxWidth: "1220px", mt:5 }}
         circle="true"
       >
         {movies.length > 0 && (
           <Container
             sx={{ display: "flex", justifyContent: "center" }}
-            // maxWidth="lg"
           >
             <Pagination
               count={Math.ceil(movies.length / moviesPerPage)}
