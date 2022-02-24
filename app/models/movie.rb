@@ -5,36 +5,6 @@ class Movie < ApplicationRecord
     ["filmworld", "cinemaworld"]
   end
 
-  def self.price_of_movie_by_cinema(cinema, index)
-    GetMovies.get_movies(cinema)[:Movies][index][:Price]
-  end
-
-  def self.prices_of_cinemas
-    # For each endpoint, it adds all the prices as both currency and number formats and finds the cheapest price.
-    
-    result = []
-    max_movie_index = GetMovies.get_movies("filmworld")[:Movies].size - 1
-    movie_index = 0
-    
-    # For each movie index, store the prices as number and currency formats for each endpoint (cinema)
-    while movie_index<=max_movie_index
-      prices = {}
-      self.endpoints.each do |endpoint|
-        movie_price = price_of_movie_by_cinema(endpoint, movie_index)
-        prices[endpoint] = {
-          currency: self.number_to_currency(movie_price),
-          number: movie_price,
-          cheapest: false
-        }
-      end
-      # Find the minimum price and set the cheapest attr to true, and push the object to the results array
-      prices.values.min_by{|price_obj| price_obj[:number]}[:cheapest] = true
-      result << prices
-      movie_index += 1
-    end
-    result
-  end
-  
   def self.movie_cards
     # Assumption:
     # Since streaming providers share the same information (except prices) and also the information of each one has the same order, 
@@ -62,12 +32,77 @@ class Movie < ApplicationRecord
       }
     end
   end
+  
+  def self.prices_of_cinemas_with_cheapest_movies
+    # Defines all prices and which cinema has the cheapest movie
+    
+    max_movie_index = GetMovies.get_movies("filmworld")[:Movies].size-1
+    movie_index = 0
+    prices_of_cinemas = self.prices_of_cinemas_without_filtering_the_cheapests
+    
+    # Loop over all movie indexes
+    while movie_index <= max_movie_index
+      temp = nil
+      
+      # For each cinema price info, store only the cheapest one in a temp variable
+      # and set the "cheapest" attribute to true
+      prices_of_cinemas.each do |cinema, price_info|
+        movie_price_info = prices_of_cinemas[cinema][movie_index]
+        
+        if !temp       
+          temp = movie_price_info
+        else
+          if temp[:number] > movie_price_info[:number]
+            temp = movie_price_info
+          end
+          temp[:cheapest] = true
+        end
 
+      end
+      
+      # For each cinema price, find the one that has the same movie id as the temp 
+      # variable and set it equal to the temp variable.
+      prices_of_cinemas.each do |cinema,price_info|
+        movie_price_info = prices_of_cinemas[cinema][movie_index]
+        
+        if movie_price_info[:movie_id] == temp[:movie_id]
+          movie_price_info = temp
+          break
+        end
+
+      end
+      
+      movie_index +=1
+
+    end
+    prices_of_cinemas
+
+  end
 
   private
   
   def self.number_to_currency(number)
     ActionController::Base.helpers.number_to_currency(number)
+  end
+
+  def self.prices_of_cinemas_without_filtering_the_cheapests
+    # For each endpoint, it adds all the prices as both currency and number formats.
+    result = {}
+    self.endpoints.each do |endpoint|
+      result[endpoint] = GetMovies.get_movies(endpoint)[:Movies].map do |movie|
+        {
+          movie_id: movie[:ID],
+          currency: self.number_to_currency(movie[:Price]),
+          number: movie[:Price],
+          cheapest: false
+        }
+      end
+    end
+    result
+  end
+
+  def self.price_of_movie_by_cinema(cinema, index)
+    GetMovies.get_movies(cinema)[:Movies][index][:Price]
   end
 
 end

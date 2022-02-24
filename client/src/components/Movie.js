@@ -1,9 +1,9 @@
 import { Grid, Typography, Card, CardMedia, CardContent } from "@mui/material"
 
-export const Movie = ({ movie, moviePrices }) => {
-   
+export const Movie = ({ movie, moviesPrices, idx }) => {
+  
   const renderPrices = () => {
-    return moviePrices.cinemaworld.number < moviePrices.filmworld.number ? (
+    return moviesPrices.cinemaworld[idx].number < moviesPrices.filmworld[idx].number ? (
       <>
         <Typography
           gutterBottom
@@ -12,10 +12,10 @@ export const Movie = ({ movie, moviePrices }) => {
           color="white"
           sx={{ background: "#4caf50" }}
         >
-          <b>Cinemaworld: {moviePrices.cinemaworld.currency}</b>
+          <b>Cinemaworld: {moviesPrices.cinemaworld[idx].currency}</b>
         </Typography>
         <Typography gutterBottom variant="body1" component="p" color="#ff1744">
-          <del>Filmworld: {moviePrices.filmworld.currency}</del>
+          <del>Filmworld: {moviesPrices.filmworld[idx].currency}</del>
         </Typography>
       </>
     ) : (
@@ -27,14 +27,24 @@ export const Movie = ({ movie, moviePrices }) => {
           color="white"
           sx={{ background: "#4caf50" }}
         >
-          <b>Filmworld: {moviePrices.filmworld.currency}</b>
+          <b>Filmworld: {moviesPrices.filmworld[idx].currency}</b>
         </Typography>
         <Typography gutterBottom variant="body1" component="p" color="#ff1744">
-          <del>Cinemaworld: {moviePrices.cinemaworld.currency}</del>
+          <del>Cinemaworld: {moviesPrices.cinemaworld[idx].currency}</del>
         </Typography>
       </>
     )
   }
+
+  // const cheapestCinemaByMovie = () => {
+  //   // cinemas = ['filmworld', 'cinemaworld']
+  //   const cinemas = Object.keys(moviesPrices)
+  //   for (let i=0; i<=moviesPrices[cinemas[0]].length; i++) {
+  //     cinemas.forEach(cinema => {
+  //       moviesPrices[cinema].number
+  //     })
+  //   }
+  // }
 
   return (
     <Grid item xs={6} sm={6} md={3} lg={3}>

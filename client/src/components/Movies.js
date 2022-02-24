@@ -64,10 +64,9 @@ export const Movies = () => {
     else {
       if (Object.keys(moviesPrices).length>0) {
         return movies
-        .map((movie, idx) => <Movie key={movie.id} movie={movie} moviePrices={moviesPrices[idx]}/>)
+        .map((movie, idx) => <Movie key={movie.id} movie={movie} moviesPrices={moviesPrices} idx={idx}/>)
         .slice(page * moviesPerPage - moviesPerPage, page * moviesPerPage)
       }
-      
     }
   }
 
