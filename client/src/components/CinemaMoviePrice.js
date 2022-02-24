@@ -1,0 +1,27 @@
+import { Typography } from "@mui/material"
+import { capitalise } from "../helpers"
+
+export const CinemaMoviePrice = ({ cinema, moviePrice }) => {
+  const renderCinemaMoviePrice = () => (
+    <Typography
+      gutterBottom
+      variant="body1"
+      component="p"
+      color={moviePrice.cheapest ? "white" : "#ff1744"}
+      sx={{ background: moviePrice.cheapest ? "#4caf50" : "white" }}
+    >
+      {moviePrice.cheapest ? (
+        <b>
+          {capitalise(cinema)}: {moviePrice.currency}
+        </b>
+      ) : (
+        <del>
+          {capitalise(cinema)}: {moviePrice.currency}
+        </del>
+      )}
+    </Typography>
+  )
+
+  return renderCinemaMoviePrice()
+}
+

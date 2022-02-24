@@ -62,11 +62,10 @@ export const Movies = () => {
       )
     }
     else {
-      if (Object.keys(moviesPrices).length>0) {
+      // In any other case, map over the movies state to the render each movie
         return movies
         .map((movie, idx) => <Movie key={movie.id} movie={movie} moviesPrices={moviesPrices} idx={idx}/>)
         .slice(page * moviesPerPage - moviesPerPage, page * moviesPerPage)
-      }
     }
   }
 

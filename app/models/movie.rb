@@ -1,5 +1,4 @@
 class Movie < ApplicationRecord
-  # ActionController::Base.helpers.number_to_currency
   
   def self.endpoints
     ["filmworld", "cinemaworld"]
@@ -15,7 +14,7 @@ class Movie < ApplicationRecord
       # Loop over one of the streaming providers and only retrieve the information that is shared among all endpoints.
       GetMovies.get_movies("filmworld")[:Movies].each do |movie|
         movie_info = {
-          id: movie[:ID],
+          id: movie[:ID][2..-1],
           title: movie[:Title],
           poster: movie[:Poster],
           actors: movie[:Actors],

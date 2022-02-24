@@ -1,50 +1,18 @@
 import { Grid, Typography, Card, CardMedia, CardContent } from "@mui/material"
+import { CinemaMoviePrice } from "./CinemaMoviePrice"
 
 export const Movie = ({ movie, moviesPrices, idx }) => {
-  
-  const renderPrices = () => {
-    return moviesPrices.cinemaworld[idx].number < moviesPrices.filmworld[idx].number ? (
-      <>
-        <Typography
-          gutterBottom
-          variant="body1"
-          component="p"
-          color="white"
-          sx={{ background: "#4caf50" }}
-        >
-          <b>Cinemaworld: {moviesPrices.cinemaworld[idx].currency}</b>
-        </Typography>
-        <Typography gutterBottom variant="body1" component="p" color="#ff1744">
-          <del>Filmworld: {moviesPrices.filmworld[idx].currency}</del>
-        </Typography>
-      </>
-    ) : (
-      <>
-        <Typography
-          gutterBottom
-          variant="body1"
-          component="p"
-          color="white"
-          sx={{ background: "#4caf50" }}
-        >
-          <b>Filmworld: {moviesPrices.filmworld[idx].currency}</b>
-        </Typography>
-        <Typography gutterBottom variant="body1" component="p" color="#ff1744">
-          <del>Cinemaworld: {moviesPrices.cinemaworld[idx].currency}</del>
-        </Typography>
-      </>
-    )
-  }
-
-  // const cheapestCinemaByMovie = () => {
-  //   // cinemas = ['filmworld', 'cinemaworld']
-  //   const cinemas = Object.keys(moviesPrices)
-  //   for (let i=0; i<=moviesPrices[cinemas[0]].length; i++) {
-  //     cinemas.forEach(cinema => {
-  //       moviesPrices[cinema].number
-  //     })
-  //   }
-  // }
+  const renderPrices = () =>
+    // Maps the MoviesPrices props to display the CinemaMoviePrice component and sorts it
+    Object.entries(moviesPrices)
+      .map((cinemaMoviePrices) => (
+        <CinemaMoviePrice
+          key={cinemaMoviePrices[1][idx].movie_id}
+          cinema={cinemaMoviePrices[0]}
+          moviePrice={cinemaMoviePrices[1][idx]}
+        />
+      ))
+      .sort((a, b) => a.props.moviePrice.number - b.props.moviePrice.number)
 
   return (
     <Grid item xs={6} sm={6} md={3} lg={3}>
@@ -64,7 +32,7 @@ export const Movie = ({ movie, moviesPrices, idx }) => {
             {movie.title}
           </Typography>
           <Typography gutterBottom variant="body2" component="p">
-            By: {movie.actors}
+            <b>Actors:</b> {movie.actors}
           </Typography>
           {renderPrices()}
         </CardContent>

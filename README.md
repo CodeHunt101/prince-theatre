@@ -73,6 +73,8 @@ App.js
   |-->Movies.js
           |
           |-->Movie.js
+                |
+                |-->CinemaMoviePrice.js
 ```
 
 *index.css* contains some stylings and layout that was not implemented from Material UI.
