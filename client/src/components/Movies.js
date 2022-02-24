@@ -18,7 +18,7 @@ export const Movies = () => {
 
   // Movies state, fetch on component load and render method
   const [movies, setMovies] = useState([])
-  const [moviePrices, setMoviePrices] = useState({})
+  const [moviesPrices, setMoviesPrices] = useState([])
 
   const fetchMovieCards = () => {
     // Fetches movies from the server and assign them to the movies state
@@ -31,11 +31,11 @@ export const Movies = () => {
       })
   }
 
-  const fetchMoviePrices = () => {
+  const fetchMoviesPrices = () => {
     // Fetches movies prices from the server and assign them to the movies state
     fetch("/api/v1/movie_prices")
       .then((resp) => resp.json())
-      .then((prices) => setMoviePrices(prices.response))
+      .then((prices) => setMoviesPrices(prices.response))
       .catch((error) => {
         console.log(error)
         setMovies("hello")
@@ -45,7 +45,7 @@ export const Movies = () => {
   useEffect(() => {
     // Fetches movies on component load
     fetchMovieCards()
-    fetchMoviePrices()
+    fetchMoviesPrices()
   }, [])
 
   const renderMoviesOnPage = (page = 1) => {
@@ -54,17 +54,17 @@ export const Movies = () => {
     if (movies.error) {
       return <Typography variant="h5" component="p">Oops, we couldn't retrieve the movies data, please try again later.</Typography>
     } 
-     else if (movies.length === 0) {
+     else if (movies.length === 0 || moviesPrices.length === 0) {
       return (
-        <Box sx={{ width: "50%" }}>
+        <Box sx={{ width: "50%", p:10 }}>
           <LinearProgress />
         </Box>
       )
     }
     else {
-      if (Object.keys(moviePrices).length>0) {
+      if (Object.keys(moviesPrices).length>0) {
         return movies
-        .map((movie, idx) => <Movie key={movie.id} movie={movie} moviePrice={moviePrices[idx]}/>)
+        .map((movie, idx) => <Movie key={movie.id} movie={movie} moviePrices={moviesPrices[idx]}/>)
         .slice(page * moviesPerPage - moviesPerPage, page * moviesPerPage)
       }
       
