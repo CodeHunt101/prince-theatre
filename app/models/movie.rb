@@ -23,7 +23,7 @@ class Movie < ApplicationRecord
       end
       movie_cards
 
-
+    # Handles the most common exception type
     rescue NoMethodError => error
       {
         error: error, 
@@ -35,47 +35,55 @@ class Movie < ApplicationRecord
   def self.prices_of_cinemas_with_cheapest_movies
     # Defines all prices and which cinema has the cheapest movie
     
-    max_movie_index = GetMovies.get_movies("filmworld")[:Movies].size-1
-    movie_index = 0
-    prices_of_cinemas = self.prices_of_cinemas_without_filtering_the_cheapests
-    
-    # Loop over all movie indexes
-    while movie_index <= max_movie_index
-      temp = nil
+    begin
+      max_movie_index = GetMovies.get_movies("filmworld")[:Movies].size-1
+      movie_index = 0
+      prices_of_cinemas = self.prices_of_cinemas_without_filtering_the_cheapests
       
-      # For each cinema price info, store only the cheapest one in a temp variable
-      # and set the "cheapest" attribute to true
-      prices_of_cinemas.each do |cinema, price_info|
-        movie_price_info = prices_of_cinemas[cinema][movie_index]
+      # Loop over all movie indexes
+      while movie_index <= max_movie_index
+        temp = nil
         
-        if !temp       
-          temp = movie_price_info
-        else
-          if temp[:number] > movie_price_info[:number]
+        # For each cinema price info, store only the cheapest one in a temp variable
+        # and set the "cheapest" attribute to true
+        prices_of_cinemas.each do |cinema, price_info|
+          movie_price_info = prices_of_cinemas[cinema][movie_index]
+          
+          if !temp       
             temp = movie_price_info
+          else
+            if temp[:number] > movie_price_info[:number]
+              temp = movie_price_info
+            end
+            temp[:cheapest] = true
           end
-          temp[:cheapest] = true
-        end
 
-      end
-      
-      # For each cinema price, find the one that has the same movie id as the temp 
-      # variable and set it equal to the temp variable.
-      prices_of_cinemas.each do |cinema,price_info|
-        movie_price_info = prices_of_cinemas[cinema][movie_index]
+        end
         
-        if movie_price_info[:movie_id] == temp[:movie_id]
-          movie_price_info = temp
-          break
+        # For each cinema price, find the one that has the same movie id as the temp 
+        # variable and set it equal to the temp variable.
+        prices_of_cinemas.each do |cinema,price_info|
+          movie_price_info = prices_of_cinemas[cinema][movie_index]
+          
+          if movie_price_info[:movie_id] == temp[:movie_id]
+            movie_price_info = temp
+            break
+          end
+
         end
+        
+        movie_index +=1
 
       end
-      
-      movie_index +=1
-
+      prices_of_cinemas
+    
+    # Handles the most common exception type
+    rescue NoMethodError => error
+      {
+        error: error, 
+        message: "There is a problem with retriving the information from the endpoints"
+      }
     end
-    prices_of_cinemas
-
   end
 
   private

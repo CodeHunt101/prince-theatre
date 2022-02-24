@@ -60,7 +60,7 @@ Ports from server and client are already set to be different, so there is no nee
 ## Structure (MVC)
 
 ### Models & Controllers
-The *Rails* server handles the logic of the app from the **GetMovies** (*get_movies.rb*) and **Movie** (*movie.rb*) models. The movies details are sent to the Client from  **Api::V1::MoviesController** (*movies_controller.rb*) as JSON. The manual play mode is handled from the client.
+The *Rails* server handles the logic of the app from the **GetMovies** (*get_movies.rb*) and **Movie** (*movie.rb*) models. The movies details are sent to the Client from  **Api::V1::MoviesController** (*movies_controller.rb*) as JSON.
 
 ### Views
 The components structure is the following:
