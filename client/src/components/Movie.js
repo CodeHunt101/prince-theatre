@@ -1,10 +1,9 @@
 import { Grid, Typography, Card, CardMedia, CardContent } from "@mui/material"
 
-export const Movie = ({ movie, moviePrices, idx }) => {
-  console.log(moviePrices)
-  
+export const Movie = ({ movie, moviePrice }) => {
+   
   const renderPrices = () => {
-    return moviePrices.cinemaworld[idx].number < moviePrices.filmworld[idx].number ? (
+    return moviePrice.cinemaworld.number < moviePrice.filmworld.number ? (
       <>
         <Typography
           gutterBottom
@@ -13,10 +12,10 @@ export const Movie = ({ movie, moviePrices, idx }) => {
           color="white"
           sx={{ background: "#4caf50" }}
         >
-          <b>Cinemaworld: {moviePrices.cinemaworld[idx].currency}</b>
+          <b>Cinemaworld: {moviePrice.cinemaworld.currency}</b>
         </Typography>
         <Typography gutterBottom variant="body1" component="p" color="#ff1744">
-          <del>Filmworld: {moviePrices.filmworld[idx].currency}</del>
+          <del>Filmworld: {moviePrice.filmworld.currency}</del>
         </Typography>
       </>
     ) : (
@@ -28,10 +27,10 @@ export const Movie = ({ movie, moviePrices, idx }) => {
           color="white"
           sx={{ background: "#4caf50" }}
         >
-          <b>Filmworld: {moviePrices.filmworld[idx].currency}</b>
+          <b>Filmworld: {moviePrice.filmworld.currency}</b>
         </Typography>
         <Typography gutterBottom variant="body1" component="p" color="#ff1744">
-          <del>Cinemaworld: {moviePrices.cinemaworld[idx].currency}</del>
+          <del>Cinemaworld: {moviePrice.cinemaworld.currency}</del>
         </Typography>
       </>
     )
