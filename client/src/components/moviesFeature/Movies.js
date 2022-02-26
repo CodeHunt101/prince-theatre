@@ -27,7 +27,6 @@ export const Movies = () => {
       .then((movies) => setMovies(movies.response))
       .catch((error) => {
         console.log(error)
-        // setMovies("hello")
       })
   }
 
@@ -38,7 +37,6 @@ export const Movies = () => {
       .then((prices) => setMoviesPrices(prices.response))
       .catch((error) => {
         console.log(error)
-        // setMovies("hello")
       })
   }
 
