@@ -51,11 +51,13 @@ export const Movies = () => {
     then shows only the ones needed depending on the current page */
     if (movies.error) {
       return (
-        <Typography variant="h5" component="p">
+        <Typography component="p" variant="h5">
           Oops, we couldn't retrieve the movies data, please try again later.
         </Typography>
       )
-    } else if (movies.length === 0 || moviesPrices.length === 0) {
+    } 
+    
+    if (movies.length === 0 || moviesPrices.length === 0) {
       return (
         <Box sx={{ width: "50%", p: 10 }}>
           <LinearProgress />
@@ -67,9 +69,9 @@ export const Movies = () => {
         .map((movie, idx) => (
           <Movie
             key={movie.id}
+            idx={idx}
             movie={movie}
             moviesPrices={moviesPrices}
-            idx={idx}
           />
         ))
         .slice(page * moviesPerPage - moviesPerPage, page * moviesPerPage)
@@ -79,27 +81,27 @@ export const Movies = () => {
   return (
     <>
       <Grid
-        id="movie-cards-list"
+        circle="true"
         component="section"
+        id="movie-cards-list"
         item
         sx={{ mx: "auto", minHeight: "75vh", maxWidth: "1220px", mt: 5 }}
-        circle="true"
       >
         {movies.length > 0 && (
           <Container sx={{ display: "flex", justifyContent: "center" }}>
             <Pagination
-              count={Math.ceil(movies.length / moviesPerPage)}
-              page={page}
-              onChange={handleOnPageChange}
               color="primary"
+              count={Math.ceil(movies.length / moviesPerPage)}
+              onChange={handleOnPageChange}
+              page={page}
             />
           </Container>
         )}
         <Container sx={{ py: 5 }} maxWidth="lg">
           <Grid
             container
-            sx={{ display: "flex", justifyContent: "center" }}
             spacing={4}
+            sx={{ display: "flex", justifyContent: "center" }}
           >
             {renderMoviesOnPage(page)}
           </Grid>

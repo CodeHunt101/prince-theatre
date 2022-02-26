@@ -3,17 +3,17 @@ import "../../App.css"
 
 export const Header = () => (
   <Box component="header">
-    <Typography gutterBottom variant="h2" component="h1">
+    <Typography component="h1" gutterBottom variant="h2">
       <b>Prince's Theatre</b>
     </Typography>
-    <Typography gutterBottom variant="h4" component="h4">
+    <Typography component="h4" gutterBottom variant="h4">
       Save your money, guaranteed!
     </Typography>
     <Typography
-      gutterBottom
-      variant="body1"
       component="p"
+      gutterBottom
       sx={{ ml: 2, mr: 2 }}
+      variant="body1"
     >
       Hi there! Welcome to Prince's Theatre, here you'll save tons of money by
       always seeing the best deals.

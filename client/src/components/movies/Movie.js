@@ -1,7 +1,7 @@
 import { Grid, Typography, Card, CardMedia, CardContent } from "@mui/material"
 import { CinemaMoviePrice } from "./CinemaMoviePrice"
 
-export const Movie = ({ movie, moviesPrices, idx }) => {
+export const Movie = ({ idx, movie, moviesPrices }) => {
   const renderPrices = () =>
     // Maps the MoviesPrices props to display the CinemaMoviePrice component and sorts it
     Object.entries(moviesPrices)
@@ -17,25 +17,25 @@ export const Movie = ({ movie, moviesPrices, idx }) => {
   return (
     <Grid item xs={6} sm={6} md={3} lg={3}>
       <Card
-        id={movie.id}
         className="movie-card"
-        sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+        id={movie.id}
+        sx={{ display: "flex", flexDirection: "column", height: "100%" }}
       >
         <CardMedia
+          alt={`Poster: ${movie.title}`}
           component="img"
+          height="300px"
+          image={movie.poster}
           sx={{
             pt: "10%",
           }}
-          height="300px"
-          image={movie.poster}
-          alt="moviePoster"
         />
 
         <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h6" component="h2">
+          <Typography gutterBottom component="h2" variant="h6">
             {movie.title}
           </Typography>
-          <Typography gutterBottom variant="body2" component="p">
+          <Typography gutterBottom component="p" variant="body2">
             <b>Actors:</b> {movie.actors}
           </Typography>
           {renderPrices()}
