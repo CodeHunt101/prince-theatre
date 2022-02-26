@@ -20,7 +20,7 @@
   "scripts": {
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom --verbose",
+    "test": "react-scripts test --verbose --watchAll",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -4,7 +4,7 @@ import {mockMovieCards} from '../../mocks/movieCards'
 import {mockCinemaMoviesPrices} from '../../mocks/cinemaMoviesPrices'
 
 describe('<Movie />', () => {
-  test('is displays the title, actors, cinemas and prices', () => {
+  test('displays the title, actors, cinemas and prices', () => {
     // Pass required props to <Movie/> (using first movie of the array)
     render(
       <Movie
@@ -29,7 +29,7 @@ describe('<Movie />', () => {
     expect(cinemaworldPrice).toBeInTheDocument()
   })
 
-  test('is displays the not cheapest prices inside a <del> tag as the minimum requirement format', () => {
+  test('displays the not cheapest prices inside a <del> tag as the minimum requirement format', () => {
     // Pass required props to <Movie/> (using first movie of the array)
     render(
       <Movie
@@ -47,7 +47,7 @@ describe('<Movie />', () => {
     expect(notCheapestPrice.parentElement.outerHTML.includes("</del>")).toBe(true)
   })
 
-  test('is displays the cheapest prices inside a <b> tag as the minimum requirement format', () => {
+  test('displays the cheapest prices inside a <b> tag as the minimum requirement format', () => {
     // Pass required props to <Movie/> (using first movie of the array)
     render(
       <Movie
