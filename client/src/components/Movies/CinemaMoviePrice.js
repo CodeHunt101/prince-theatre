@@ -13,11 +13,11 @@ export const CinemaMoviePrice = ({ cinema, moviePrice }) => {
     >
       {moviePrice.cheapest ? (
         <b>
-          {capitalise(cinema)}: {moviePrice.currency}
+          <span>{capitalise(cinema)}</span>: <span>{moviePrice.currency}</span>
         </b>
       ) : (
         <del>
-          {capitalise(cinema)}: {moviePrice.currency}
+          <span>{capitalise(cinema)}</span>: <span>{moviePrice.currency}</span>
         </del>
       )}
     </Typography>

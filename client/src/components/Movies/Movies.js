@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Movie } from "../Movie/Movie"
+import { Movie } from "./Movie"
 import {
   Box,
   LinearProgress,

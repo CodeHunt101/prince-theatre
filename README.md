@@ -28,6 +28,10 @@ Other worth mentioning frameworks/libraries/gems used are:
 - Jest
 - HTTParty
 
+## API Key
+- The API key is safely stored in an environment variable in both development and production modes. 
+- If you are going to clone this repository, make sure you have a valid API Key.
+
 ## How to Install and Run the Project
 
 1. Clone this repository.
@@ -44,13 +48,18 @@ That will install rails and all its dependencies
 npm install --prefix client
 ```
 
-4. To call the server run:
+4. Create a *.env* file on the root directory to store your API key in an environment variable. Name it API_KEY.
+```
+API_KEY = your_api_key
+```
+
+5. To call the server run:
 
 ```
 rails server
 ```
 
-5. Run the following to display the app in the browser:
+6. Run the following to display the app in the browser:
 ```
 npm start --prefix client
 ```
@@ -83,16 +92,23 @@ App.js
 
 For Ruby on Rails (server), RSpec was the designated testing tool.
 
-To execute the tests from Ruby on Rails, please run from the root directory:
+To execute the tests from Ruby on Rails, please run from the **root** directory:
 
 ```
 rspec
 ```
 It will automatically run all the tests where green means that a test passed and red means it didn't pass.
 
-## API Key
-- The API key is safely stored in an environment variable in both development and production modes. 
-- If you are going to clone this repository, make sure you have a valid API Key.
+For React (client), Jest was the designated testing tool.
+
+To execute the tests from React, please run from the **root** directory:
+```
+npm test --prefix client
+```
+If an error is thrown before the watcher is set up and tests are ran, please execute the following:
+```
+npm i -D --exact jest-watch-typeahead@0.6.5
+```
 
 ## Responsiveness
 This application is fully responsive. It adapts to any screen size.
