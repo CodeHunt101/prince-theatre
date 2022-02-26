@@ -1,8 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import App from "./App"
+import { capitalise } from "./utils"
+import renderer from "react-test-renderer"
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe("Helpers", () => {
+  test("capitalises the movies endpoints", () => {
+    expect(capitalise("cinema")).toBe("Cinema")
+    expect(capitalise("CINEMA")).toBe("Cinema")
+    expect(capitalise("cINEMA")).toBe("Cinema")
+    expect(capitalise("cInEmA")).toBe("Cinema")
+  })
+})
+
+test("App renders correctly", () => {
+  const tree = renderer.create(<App />).toJSON()
+  expect(tree).toMatchSnapshot()
+})
