@@ -1,5 +1,5 @@
 import { Typography, Box } from "@mui/material"
-import "../App.css"
+import "../../App.css"
 
 export const Header = () => (
   <Box component="header">

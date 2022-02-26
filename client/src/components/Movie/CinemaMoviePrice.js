@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material"
-import { capitalise } from "../helpers"
+import { capitalise } from "../../utils"
 
 export const CinemaMoviePrice = ({ cinema, moviePrice }) => {
   const renderCinemaMoviePrice = () => (
@@ -7,6 +7,7 @@ export const CinemaMoviePrice = ({ cinema, moviePrice }) => {
       gutterBottom
       variant="body1"
       component="p"
+      className={moviePrice.cheapest ? "cheapest" : "not-cheapest"}
       color={moviePrice.cheapest ? "white" : "#ff1744"}
       sx={{ background: moviePrice.cheapest ? "#4caf50" : "white" }}
     >
