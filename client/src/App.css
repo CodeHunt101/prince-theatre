@@ -2,12 +2,3 @@
   text-align: center;
 }
 
-/* ::::Header:::: */
-.highlight-cheapest {
-  color: white;
-  background-color: #4caf50;
-}
-
-.highlight-expensive {
-  color: #ff1744;
-}

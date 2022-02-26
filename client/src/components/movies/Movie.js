@@ -16,7 +16,11 @@ export const Movie = ({ movie, moviesPrices, idx }) => {
 
   return (
     <Grid item xs={6} sm={6} md={3} lg={3}>
-      <Card id={movie.id} className="movie-card" sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <Card
+        id={movie.id}
+        className="movie-card"
+        sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+      >
         <CardMedia
           component="img"
           sx={{

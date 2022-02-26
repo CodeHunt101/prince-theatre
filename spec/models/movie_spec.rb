@@ -26,7 +26,7 @@ RSpec.describe Movie, type: :model do
   end
   
 
-  it "Returns the Movie Cards that displays all the movies information" do
+  it "Returns the Movie Cards that display all the movies information" do
     movie_cards = Movie.movie_cards
     expect(movie_cards.class).to eq(Array)
     expect(movie_cards.size).to eq(11)

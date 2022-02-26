@@ -15,8 +15,8 @@ export const Header = () => (
       component="p"
       sx={{ ml: 2, mr: 2 }}
     >
-      Hi there! Welcome to Prince's Theatre, here you'll see some movie prices from
-      two cinemas!
+      Hi there! Welcome to Prince's Theatre, here you'll save tons of money by
+      always seeing the best deals.
     </Typography>
   </Box>
 )

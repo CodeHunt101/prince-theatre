@@ -71,7 +71,7 @@ bundle install
 npm install --prefix client
 ```
 
-4. Create a _.env_ file on the root directory to store your API key in an environment variable. Name it API_KEY.
+4. Create a _.env_ file in the root directory to store your API key in an environment variable. Name it API_KEY.
 
 ```
 API_KEY = your_api_key
@@ -177,5 +177,6 @@ Some stylings and layouts that are not implemented from Material UI, are located
 - Add a database:
   - It could improve the site's performance as it won't have to request data from an external API every time a user loads the page. Periodic database updates from the background might be needed if implemented.
   - It would allow users to track how much money they have saved by selecting the cheapest cinemas.
+- Use Redux for state management. Thinking about scalability, having Redux for state management as it managea state in single place.
 
 Thank you for your time!

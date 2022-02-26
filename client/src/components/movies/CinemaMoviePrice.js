@@ -25,4 +25,3 @@ export const CinemaMoviePrice = ({ cinema, moviePrice }) => {
 
   return renderCinemaMoviePrice()
 }
-
