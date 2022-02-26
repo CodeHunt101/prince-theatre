@@ -1,19 +1,32 @@
-# PRINCE'S THEATRE
+# Prince's theatre
 
-The place you'll find the best deals for movies in terms of price, guaranteed!
+The place you'll find the best deals for movies, guaranteed!
+
+### Contents
+
+- [Description](#description)
+- [Instructions](#instructions)
+- [Architecture (MVC)](#architecture-mvc)
+- [Trade-offs](#trade-offs)
+- [Assumptions](#assumptions)
+- [Opportunities of improvement](#opportunities-of-improvement)
+
+---
 
 ## Description
 
 This application renders a group of classic movies and compares the prices of two well-known streaming providers, "Filmworld" and "Cinemaworld".
-It displays movie posters, titles, actors, and the most impoart thing: prices!
-The cheapest prices are highlighted in green, and the expensive prices have strikethrough and are red coloured.
+It displays movie posters, titles, actors, and the most important thing: prices!
+The cheapest streaming providers are highlighted in green, and other ones have a strikethrough and are red coloured.
 
-For this project, the following technologies were used:
+This app was deployed to heroku:
 
-🧰 Languages
+<a href="https://prince-theatre-app.herokuapp.com/">https://prince-theatre-app.herokuapp.com/</a>
 
-![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+### Technologies used:
+
+🧰 Programming Languages
+
 ![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 
@@ -24,31 +37,42 @@ For this project, the following technologies were used:
 ![](https://img.shields.io/badge/materialui-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white)
 
 Other worth mentioning frameworks/libraries/gems used are:
-- RSpec
-- Jest
-- HTTParty
 
-## API Key
-- The API key is safely stored in an environment variable in both development and production modes. 
+- RSpec (Ruby testing tool)
+- Jest (JavaScript testing framework)
+- HTTParty (Remote URLs fetching tool for Ruby)
+
+### Responsiveness:
+
+This application is fully responsive. It adapts to any screen size.
+
+### API Key:
+
+- The API key is safely stored in an environment variable in both development and production modes.
 - If you are going to clone this repository, make sure you have a valid API Key.
 
-## How to Install and Run the Project
+---
+
+## Instructions
+
+### How to install and run:
 
 1. Clone this repository.
 
-2. Please make sure you are using **Ruby 2.7.4**, otherwise go to *Gemfile* and change the ruby version to the one you currently have (However, I encourage you to use **Ruby 2.7.4** to avoid incompatibility issues). Then please run:
+2. Please make sure you are using **Ruby 2.7.4**; otherwise, go to _Gemfile_ and change the ruby version to the one you currently have (I encourage you to use **Ruby 2.7.4** to avoid incompatibility issues). Then please run the following to install **Rails** and all the dependencies needed for this project:
 
 ```
 bundle install
 ```
-That will install rails and all its dependencies
 
-3. To install all the react dependencies, please run from the root directory:
+3. To install all the **React** dependencies needed for this project, please run from the root directory:
+
 ```
 npm install --prefix client
 ```
 
-4. Create a *.env* file on the root directory to store your API key in an environment variable. Name it API_KEY.
+4. Create a _.env_ file on the root directory to store your API key in an environment variable. Name it API_KEY.
+
 ```
 API_KEY = your_api_key
 ```
@@ -60,19 +84,58 @@ rails server
 ```
 
 6. Run the following to display the app in the browser:
+
 ```
 npm start --prefix client
 ```
 
-Ports from server and client are already set to be different, so there is no need to specify them. Port 3000 for Rails and Port 4000 for React.
+Ports from server and client are already set to be different, so there is no need to specify them. Port 3000 is assigned to Rails and Port 4000 to React.
 
-## Structure (MVC)
+## Rails tests instructions:
 
-### Models & Controllers
-The *Rails* server handles the logic of the app from the **GetMovies** (*get_movies.rb*) and **Movie** (*movie.rb*) models. The movies details are sent to the Client from  **Api::V1::MoviesController** (*movies_controller.rb*) as JSON.
+- Most of the relevant unit tests are in Rails since the entire logic is handled from the server
+- For Ruby on Rails (server), RSpec was the designated testing tool.
+- Test files for ruby and configuration files are located in _spec/_
 
-### Views
-The components structure is the following:
+To execute the tests from Ruby on Rails, please run from the **root** directory:
+
+```
+rspec
+```
+
+It will automatically run all the tests where green means a test passed and red means it didn't pass.
+
+For React (client), Jest was the designated testing tool.
+
+## React tests instructions:
+
+- For React (client), Jest was the designated testing tool.
+- Test files for React and configuration files are located in _app/src/_
+- Tests for specific components are located in the same component's folder
+
+To execute the tests from React, please run from the **root** directory:
+
+```
+npm test --prefix client
+```
+
+If an error is thrown before the watcher is set up and tests are run, please execute the following:
+
+```
+npm i -D --exact jest-watch-typeahead@0.6.5
+```
+
+---
+
+## Architecture (MVC)
+
+### Models & Controllers:
+
+The _Rails_ server handles the logic of the app from the **GetMovies** (_app/models/get_movies.rb_) and **Movie** (_app/models/movie.rb_) models. The movies details are sent to the Client from **Api::V1::MoviesController** (_app/controllers/api/v1/movies_controller.rb_) as JSON.
+
+### Views:
+
+All the files (components and tests) are grouped by features and are located in _client/src/components/_. The components structure is the following:
 
 ```
 App.js
@@ -86,38 +149,33 @@ App.js
                 |-->CinemaMoviePrice.js
 ```
 
-*index.css* contains some stylings and layout that was not implemented from Material UI.
+Some stylings and layouts that are not implemented from Material UI, are located at _client/src/index.css_.
 
-## Tests
+---
 
-For Ruby on Rails (server), RSpec was the designated testing tool.
+## Trade-offs
 
-To execute the tests from Ruby on Rails, please run from the **root** directory:
+- Initially, only one endpoint was needed from the Rails API to retrieve everything required, such as the movie's details, prices by cinema, and display the lowest price. However, the way the API was generated wasn't efficient, and it was too slow in production. The trade-off for this situation was excluding the prices from the initial endpoint and adding a second endpoint that retrieves them. Now the rendering time is much more efficient in production, although now two endpoints are required.
 
-```
-rspec
-```
-It will automatically run all the tests where green means that a test passed and red means it didn't pass.
+- For the ease of the user experience, pagination was decided as the means to render the movie cards. The current amount of data is low, so client-side pagination would quickly render the data with just one query. However, if the dataset gets much more extensive, switching to server-side pagination for stability and scalability will be necessary.
 
-For React (client), Jest was the designated testing tool.
-
-To execute the tests from React, please run from the **root** directory:
-```
-npm test --prefix client
-```
-If an error is thrown before the watcher is set up and tests are ran, please execute the following:
-```
-npm i -D --exact jest-watch-typeahead@0.6.5
-```
-
-## Responsiveness
-This application is fully responsive. It adapts to any screen size.
+---
 
 ## Assumptions
-- The general information such as Movie titles and actors are the same. Therefore, those two attributes are rendered from Film World assuming that the Cinema World attributes will be the same.
-- The problem to solve is to compare price, so it is assumed that prices might not be the same.
 
-<!-- ## Improvement Opportunities -->
+- The general information such as Movie titles and actors are the same at both endpoints. Therefore, those two attributes are rendered from Filmworld, assuming that the Cinemaworld attributes will be the same.
+- The core problem to solve is to compare prices, so it is assumed that prices might not be the same.
+- Since the API is unreliable, it is assumed that sometimes it will not return the movie's information. However, there is already an implementation that retries fetching the data ten times in case a non-desired status code is returned. It handles errors if the API is still unable to return the movie's information after ten retries.
 
+---
+
+## Opportunities of improvement
+
+- The tests from _Jest_ can be more robust: at this point, these can test the essential information that should be rendered to the front-end.
+- So far, the _RSpec_ test to compare prices won't scale: if more movies are added, it will still test correctly, but it won't if there is a new endpoint.
+- Add a sort and filtering feature: by adding this feature, the user experience will improve as users won't have to look at every page to find the movie they're looking for.
+- Add a database:
+  - It could improve the site's performance as it won't have to request data from an external API every time a user loads the page. Periodic database updates from the background might be needed if implemented.
+  - It would allow users to track how much money they have saved by selecting the cheapest cinemas.
 
 Thank you for your time!
