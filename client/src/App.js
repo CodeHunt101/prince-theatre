@@ -1,5 +1,5 @@
-import { Header } from "./components/headerFeature/Header"
-import { Movies } from "./components/moviesFeature/Movies"
+import { Header } from "./components/header/Header"
+import { Movies } from "./components/movies/Movies"
 import "./App.css"
 import { Container, Box, Paper } from "@mui/material"
 
