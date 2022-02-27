@@ -210,7 +210,7 @@ App.js
 
 - The tests from _Jest_ can be more robust: at this point, these can test the essential information that should be rendered to the front-end.
 
-- So far, the _RSpec_ test to compare prices won't scale: if more movies are added, it will still test correctly, but it won't if there is a new endpoint.
+- The _RSpec_ test to determine the cheapest prices could test all movies in one go: at this point, it can accept multiple endpoints (more than the two already provided), but it can do so as long as a single movie index is given.
 
 - Add a sort and filtering feature: by adding this feature, the user experience will improve as users won't have to look at every page to find the movie they're looking for.
 
@@ -218,6 +218,6 @@ App.js
   - It could improve the site's performance as it won't have to request data from an external API every time a user loads the page. Periodic database updates from the background might be needed if implemented.
   - It would allow users to track how much money they have saved by selecting the cheapest cinemas.
 
-- Use Redux for state management. Thinking about scalability, having Redux for state management could be helpful as it manages states in a single place.
+- Use Redux for state management: thinking about scalability, having Redux for state management could be helpful as it manages states in a single place.
 
 Thank you for your time!

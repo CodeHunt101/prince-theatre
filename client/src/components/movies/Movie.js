@@ -3,7 +3,8 @@ import { CinemaMoviePrice } from "./CinemaMoviePrice"
 
 export const Movie = ({ idx, movie, moviesPrices }) => {
   const renderPrices = () =>
-    // Maps the MoviesPrices props to display the CinemaMoviePrice component and sorts it
+    /* Maps the moviesPrices prop to display the CinemaMoviePrice component and sorts it 
+    so that the cheapest is displayed above the rest*/
     Object.entries(moviesPrices)
       .map((cinemaMoviePrices) => (
         <CinemaMoviePrice

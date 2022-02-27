@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Movie, type: :model do
   endpoints = Movie.endpoints
+  
   it "Returns all the endpoints (cinema names)" do
-    
     expect(endpoints.size).to be >= 2
     expect(endpoints.find{|e| e == "filmworld"})
     expect(endpoints.find{|e| e == "cinemaworld"})
@@ -17,12 +17,12 @@ RSpec.describe Movie, type: :model do
   end
 
   it "Returns prices of cinemas as number and currency formats in a Hash, including the movie ID" do
-    prices_of_cinemas = Movie.cinemas_movie_prices_without_filtering_cheapest_movies
-    expect(prices_of_cinemas.class).to eq(Hash)
-    expect(prices_of_cinemas.size).to eq(endpoints.size)
-    expect(prices_of_cinemas[prices_of_cinemas.keys.first].size).to eq(11)
-    expect(prices_of_cinemas[prices_of_cinemas.keys.first].first.keys).to eq([:movie_id, :currency, :number, :cheapest])
-    expect(prices_of_cinemas[prices_of_cinemas.keys.first].first[:currency][0]).to eq("$")
+    cinema_movie_prices = Movie.cinemas_movie_prices_without_filtering_cheapest_movies
+    expect(cinema_movie_prices.class).to eq(Hash)
+    expect(cinema_movie_prices.size).to eq(endpoints.size)
+    expect(cinema_movie_prices[cinema_movie_prices.keys.first].size).to eq(11)
+    expect(cinema_movie_prices[cinema_movie_prices.keys.first].first.keys).to eq([:movie_id, :currency, :number, :cheapest])
+    expect(cinema_movie_prices[cinema_movie_prices.keys.first].first[:currency][0]).to eq("$")
   end
   
 
@@ -35,31 +35,58 @@ RSpec.describe Movie, type: :model do
     expect(movie_cards.last[:id]).to eq("0121766")
   end
 
-  it "Returns the prices of cinemas, including the cheapest prices per movie between two endpoints" do
-    # This test will check several times that the condition 
+  it "Finds the cheapest movies from an index of given arrays of cinema movie prices" do  
+    # First argument of the following method (mock_cinemas_movie_prices) is stored in spec/support
+    cheapest_prices_at_idx_0 = Movie.find_cheapest_movies_from_given_index(mock_cinemas_movie_prices, 0)
+    cheapest_prices_at_idx_1 = Movie.find_cheapest_movies_from_given_index(mock_cinemas_movie_prices, 1)
+    cheapest_prices_at_idx_5 = Movie.find_cheapest_movies_from_given_index(mock_cinemas_movie_prices, 5)
+
+    # All cinemas have the same price for the movie at index 0
+    expect(cheapest_prices_at_idx_0[0]).to eq({
+      :movie_id => "fw2488496",
+      :currency => "$25.00",
+        :number => 25,
+      :cheapest => true
+  })
+    expect(cheapest_prices_at_idx_0[1]).to eq({
+      :movie_id => "cw2488496",
+      :currency => "$25.00",
+        :number => 25,
+      :cheapest => true
+  })
+    expect(cheapest_prices_at_idx_0[2]).to eq({
+      :movie_id => "nw2488496",
+      :currency => "$25.00",
+        :number => 25,
+      :cheapest => true
+  })
     
-    prices_of_cinemas = Movie.cinemas_movie_prices_with_cheapest_movies
-    5.times do  
-      rand_index = rand(0..10)
-      rand_endpoint_1 = endpoints[rand(0..endpoints.size-1)]
-      rand_endpoint_2 = endpoints[rand(0..endpoints.size-1)]
+    # Cinema 3 is the cheapest of all at index 1
+    expect(cheapest_prices_at_idx_1[0]).to eq({
+      :movie_id => "nw2527336",
+      :currency => "$23.50",
+        :number => 23.5,
+      :cheapest => true
+  })
 
-      while rand_endpoint_1 == rand_endpoint_2
-        rand_endpoint_1 = endpoints[rand(0..endpoints.size-1)]
-        rand_endpoint_2 = endpoints[rand(0..endpoints.size-1)]
-      end
+    # Cinema 1 and Cinema 3 are the cheapests at index 5
+    expect(cheapest_prices_at_idx_5[0]).to eq({
+      :movie_id => "fw0076759",
+      :currency => "$22.90",
+        :number => 22.9,
+      :cheapest => true
+  })
+    expect(cheapest_prices_at_idx_5[1]).to eq({
+      :movie_id => "nw0076759",
+      :currency => "$22.90",
+        :number => 22.9,
+      :cheapest => true
+  })
+  end
 
-      random_movie_price_from_random_endpoint_1 = prices_of_cinemas[rand_endpoint_1][rand_index][:number]
-      random_movie_price_from_random_endpoint_2 = prices_of_cinemas[rand_endpoint_2][rand_index][:number]
-      
-      if random_movie_price_from_random_endpoint_1 < random_movie_price_from_random_endpoint_2
-        expect(prices_of_cinemas[rand_endpoint_1][rand_index][:cheapest]).to eq(true)
-        expect(prices_of_cinemas[rand_endpoint_2][rand_index][:cheapest]).to eq(false)
-      else
-        expect(prices_of_cinemas[rand_endpoint_1][rand_index][:cheapest]).to eq(false)
-        expect(prices_of_cinemas[rand_endpoint_2][rand_index][:cheapest]).to eq(true)
-      end
-    end
+  it "Returns the prices of cinemas, including the cheapest prices per movie between two endpoints" do
+    # Mock_movie_prices_expected_endpoint is stored in spec/support
+    expect(Movie.cinemas_movie_prices_with_cheapest_movies).to eq(mock_movie_prices_expected_endpoint)
   end
 
 end
