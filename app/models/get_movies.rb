@@ -6,9 +6,7 @@ class GetMovies < ApplicationRecord
     
     attempts = 10
     while (response[:message] == "Bad Gateway" || response[:message] == "Server Error")
-      if attempts == 0
-        break
-      end
+      break if attempts == 0
       response = self.fetch_movies(theatre_name)
       attempts -= 1
     end

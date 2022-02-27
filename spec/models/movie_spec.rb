@@ -17,7 +17,7 @@ RSpec.describe Movie, type: :model do
   end
 
   it "Returns prices of cinemas as number and currency formats in a Hash, including the movie ID" do
-    prices_of_cinemas = Movie.prices_of_cinemas_without_filtering_the_cheapests
+    prices_of_cinemas = Movie.cinemas_movie_prices_without_filtering_cheapest_movies
     expect(prices_of_cinemas.class).to eq(Hash)
     expect(prices_of_cinemas.size).to eq(endpoints.size)
     expect(prices_of_cinemas[prices_of_cinemas.keys.first].size).to eq(11)
@@ -38,7 +38,7 @@ RSpec.describe Movie, type: :model do
   it "Returns the prices of cinemas, including the cheapest prices per movie between two endpoints" do
     # This test will check several times that the condition 
     
-    prices_of_cinemas = Movie.prices_of_cinemas_with_cheapest_movies
+    prices_of_cinemas = Movie.cinemas_movie_prices_with_cheapest_movies
     5.times do  
       rand_index = rand(0..10)
       rand_endpoint_1 = endpoints[rand(0..endpoints.size-1)]
@@ -62,27 +62,4 @@ RSpec.describe Movie, type: :model do
     end
   end
 
-  # it "Returns the prices of cinemas, including the cheapest prices per movie" do
-  #   # This test will check several times that the condition 
-    
-  #   prices_of_cinemas = Movie.prices_of_cinemas_with_cheapest_movies
-  #   5.times do  
-  #     rand_index = rand(0..10)
-  #     rand_endpoint_1 = endpoints[rand(0..endpoints.size-1)]
-  #     other_endpoints = endpoints.filter{|e| e != rand_endpoint_1}
-
-
-  #     random_movie_price_from_random_endpoint_1 = prices_of_cinemas[rand_endpoint_1][rand_index][:number]
-  #     # random_movie_price_from_other_endpoints = prices_of_cinemas[rand_endpoint_2][rand_index][:number]
-      
-  #     if random_movie_price_from_random_endpoint_1 < random_movie_price_from_random_endpoint_2
-  #       expect(prices_of_cinemas[rand_endpoint_1][rand_index][:cheapest]).to eq(true)
-  #       expect(prices_of_cinemas[rand_endpoint_2][rand_index][:cheapest]).to eq(false)
-  #     else
-  #       expect(prices_of_cinemas[rand_endpoint_1][rand_index][:cheapest]).to eq(false)
-  #       expect(prices_of_cinemas[rand_endpoint_2][rand_index][:cheapest]).to eq(true)
-  #     end
-  #   end
-  # end
-  
 end
