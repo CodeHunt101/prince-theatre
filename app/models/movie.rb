@@ -42,31 +42,36 @@ class Movie < ApplicationRecord
       
       # Loop over all movie indexes
       while movie_index <= max_movie_index
-        temp = nil
+        cheapest_movies = []
         
-        # For each cinema price info, store only the cheapest one in a temp variable
-        # and set the "cheapest" attribute to true
+        # For each cinema price info, and store only the cheapest one in the cheapest_movies array
+        # If there is a another cinema with the same price for the same movie, push it to the array
         prices_of_cinemas.each do |cinema, price_info|
           movie_price_info = prices_of_cinemas[cinema][movie_index]
-          
-          if !temp       
-            temp = movie_price_info
+          if cheapest_movies.size == 0       
+            cheapest_movies << movie_price_info
           else
-            if temp[:number] > movie_price_info[:number]
-              temp = movie_price_info
+            if movie_price_info[:number] < cheapest_movies.last[:number]
+              cheapest_movies = [movie_price_info]
+            else
+              if movie_price_info[:number] == cheapest_movies.last[:number]
+                cheapest_movies << movie_price_info
+              end
             end
-            temp[:cheapest] = true
           end
-
         end
         
-        # For each cinema price, find the one that has the same movie id as the temp 
-        # variable and set it equal to the temp variable.
+        # Set the cheaset attribute to true for all the cheapst movies
+        cheapest_movies.map{|movie| movie[:cheapest] = true}
+        
+        # For each cinema price, find the one that has the same movie id as any movie from 
+        # the cheapest movies array and set it equal to the found movie.
         prices_of_cinemas.each do |cinema,price_info|
           movie_price_info = prices_of_cinemas[cinema][movie_index]
           
-          if movie_price_info[:movie_id] == temp[:movie_id]
-            movie_price_info = temp
+          found_cheapest_movie = cheapest_movies.find{|movie| movie[:movie_id] == movie_price_info[:movie_id]}
+          if found_cheapest_movie
+            movie_price_info = found_cheapest_movie
             break
           end
 
