@@ -134,12 +134,10 @@ rspec
 
 It will automatically run all the tests where green means a test passed and red means it didn't pass.
 
-For React (client), Jest was the designated testing tool.
-
 ## React tests instructions:
 
 - For React (client), Jest was the designated testing tool.
-- Test files for React and configuration files are located in _app/src/_
+- Test files for React and configuration files are located in _app/client/src/_
 - Tests for specific components are located in the same component's folder
 
 To execute the tests from React, please run from the **root** directory:
@@ -166,7 +164,7 @@ npm i -D --exact jest-watch-typeahead@0.6.5
 
 ### Views:
 
-- All the files (components and tests) are grouped by features and are located in _client/src/components/_. The components structure is the following:
+- All the files (components and tests) are grouped by features and are located in _app/client/src/components/_. The components structure is the following:
 
 ```
 App.js
@@ -206,7 +204,7 @@ App.js
 
 ---
 
-## Opportunities of improvement
+## Opportunities for improvement
 
 - The tests from _Jest_ can be more robust: at this point, these can test the essential information that should be rendered to the front-end.
 
